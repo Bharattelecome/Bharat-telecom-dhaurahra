@@ -1,45 +1,124 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bharat Telecom Dhaurahara</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#222}
-header{background:#073b75;color:white;text-align:center;padding:28px 10px}
-header h1{margin:0;font-size:28px}
-nav{background:#ffcc00;text-align:center;padding:12px;font-weight:bold}
-main{max-width:700px;margin:20px auto;padding:12px}
-.card{background:white;padding:20px;margin-bottom:18px;border-radius:12px;box-shadow:0 2px 8px #ddd}
-h2{color:#073b75}
-.btn{display:inline-block;background:#128447;color:white;padding:12px 18px;border-radius:8px;text-decoration:none}
-footer{background:#073b75;color:white;text-align:center;padding:16px}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#222}
+header{background:#073b75;color:white;padding:20px 12px;text-align:center}
+header h1{margin:0 0 7px;font-size:25px}
+header p{margin:5px}
+button,select,input{font:inherit}
+button{border:0;border-radius:7px;padding:10px 13px;background:#073b75;color:white;cursor:pointer}
+button:active{opacity:.8}
+.lang{background:#ffcc00;color:#222;font-weight:bold}
+nav{display:flex;gap:6px;padding:10px;background:white;overflow-x:auto}
+nav button{white-space:nowrap;font-size:13px}
+main{max-width:900px;margin:auto;padding:12px}
+.card{background:white;padding:16px;margin-bottom:13px;border-radius:12px;box-shadow:0 2px 8px #0001}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat{background:#e8f1ff;padding:13px;border-radius:9px}
+.stat b{display:block;font-size:21px;color:#073b75;margin-top:8px}
+h2{color:#073b75;margin-top:0;font-size:20px}
+form{display:grid;gap:10px}
+input,select{width:100%;padding:11px;border:1px solid #ccd2dc;border-radius:7px;background:white}
+label{font-size:14px;font-weight:bold}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 6px;border-bottom:1px solid #ddd;text-align:left;overflow-wrap:anywhere}
+th{background:#e8f1ff}
+.tablewrap{overflow-x:auto}
+.danger{background:#b42318}
+.green{background:#137547}
+.muted{color:#666;font-size:13px}
+footer{text-align:center;padding:20px;color:#666}
+.hidden{display:none}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+#notice{padding:10px;border-radius:7px;background:#e1f6e8;margin-bottom:10px;display:none}
+@media(min-width:600px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
 <body>
 <header>
-<h1>BHARAT TELECOM</h1>
-<p>Dhaurahara | मोबाइल एवं इलेक्ट्रॉनिक्स</p>
+  <h1>BHARAT TELECOM</h1>
+  <p>Dhaurahरा | Mobile & Electronics</p>
+  <button class="lang" onclick="toggleLang()">हिंदी / English</button>
 </header>
-<nav>आपका अपना मोबाइल शॉप</nav>
+<nav id="nav"></nav>
 <main>
-<div class="card">
-<h2>हमारी दुकान में आपका स्वागत है!</h2>
-<p>मोबाइल फोन, एक्सेसरीज़, चार्जर और ईयरफोन के लिए संपर्क करें।</p>
-<p><b>पता:</b> Dhaurahara</p>
-</div>
-<div class="card">
-<h2>हमारी सेवाएँ</h2>
-<p>📱 मोबाइल फोन एवं एक्सेसरीज़</p>
-<p>🔌 चार्जर, केबल और ईयरफोन</p>
-<p>🛠️ मोबाइल संबंधी सहायता</p>
-</div>
-<div class="card">
-<h2>हमसे संपर्क करें</h2>
-<p>ऑर्डर और जानकारी के लिए दुकान से संपर्क करें।</p>
-</div>
+<div id="notice" role="status"></div>
+<div id="app"></div>
 </main>
-<footer>© Bharat Telecom Dhaurahara</footer>
-</body>
-</html>
+<footer>Bharat Telecom Dhaurahरा · Mobile & Electronics</footer>
+<script>
+const KEY="bharatTelecomManagerV1";
+let data;
+try{data=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!data||!Array.isArray(data.items))data={items:[],customers:[],sales:[]};
+let lang="hi",tab="home";
+const T={
+hi:{
+home:"डैशबोर्ड",stock:"स्टॉक",sale:"बिक्री / बिलिंग",customers:"ग्राहक",history:"बिक्री इतिहास",
+welcome:"दुकान का हिसाब",products:"कुल प्रोडक्ट",units:"कुल स्टॉक मात्रा",revenue:"कुल बिक्री",profit:"अनुमानित लाभ",
+addProduct:"नया सामान जोड़ें",name:"सामान का नाम",sku:"कोड / मॉडल",buy:"खरीद कीमत (₹)",price:"बिक्री कीमत (₹)",qty:"मात्रा",
+saveProduct:"स्टॉक में जोड़ें",stockList:"स्टॉक सूची",product:"सामान",available:"उपलब्ध",actions:"कार्य",
+customer:"ग्राहक का नाम",phone:"मोबाइल नंबर",choose:"सामान चुनें",sellQty:"बेचने की मात्रा",createBill:"बिल बनाएँ और बिक्री सेव करें",
+customerList:"ग्राहकों की सूची",addCustomer:"ग्राहक जोड़ें",saveCustomer:"ग्राहक सेव करें",date:"तारीख",total:"कुल",bill:"बिल नंबर",
+empty:"अभी कोई रिकॉर्ड नहीं है।",noStock:"पहले स्टॉक में सामान जोड़ें।",low:"कम स्टॉक",sold:"बिक्री सफल! बिल तैयार है।",
+required:"कृपया जरूरी जानकारी भरें।",short:"इतना स्टॉक उपलब्ध नहीं है।",delete:"हटाएँ",print:"बिल प्रिंट करें",
+search:"नाम या मोबाइल से खोजें",itemHistory:"बिक्री का विवरण",cost:"लागत",profitOne:"लाभ",homeText:"अपने स्टॉक, बिक्री और ग्राहकों का रिकॉर्ड यहाँ देखें।",
+confirmDelete:"क्या आप इसे हटाना चाहते हैं?",customerExists:"यह ग्राहक पहले से मौजूद है।",cash:"भुगतान तरीका",cashOptions:"नकद / Cash",upi:"UPI",other:"अन्य",saleCustomer:"ग्राहक",noCustomer:"Walk-in ग्राहक",back:"वापस"
+},
+en:{
+home:"Dashboard",stock:"Stock",sale:"Sales / Billing",customers:"Customers",history:"Sales History",
+welcome:"Shop Summary",products:"Products",units:"Stock Units",revenue:"Total Sales",profit:"Estimated Profit",
+addProduct:"Add New Product",name:"Product Name",sku:"Code / Model",buy:"Cost Price (₹)",price:"Selling Price (₹)",qty:"Quantity",
+saveProduct:"Add to Stock",stockList:"Stock List",product:"Product",available:"Available",actions:"Actions",
+customer:"Customer Name",phone:"Mobile Number",choose:"Choose Product",sellQty:"Quantity to Sell",createBill:"Create Bill & Save Sale",
+customerList:"Customer List",addCustomer:"Add Customer",saveCustomer:"Save Customer",date:"Date",total:"Total",bill:"Bill No.",
+empty:"No records yet.",noStock:"Add products to stock first.",low:"Low Stock",sold:"Sale successful! Bill created.",
+required:"Please fill required fields.",short:"Not enough stock available.",delete:"Delete",print:"Print Bill",
+search:"Search name or mobile",itemHistory:"Sale Details",cost:"Cost",profitOne:"Profit",
+homeText:"Manage your stock, sales and customers here.",confirmDelete:"Are you sure you want to delete this?",
+customerExists:"This customer already exists.",cash:"Payment Method",cashOptions:"Cash",upi:"UPI",other:"Other",saleCustomer:"Customer",noCustomer:"Walk-in customer",back:"Back"
+}};
+function t(k){return T[lang][k]||k}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function money(n){return "₹"+Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:2})}
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function msg(s){let n=document.getElementById("notice");n.textContent=s;n.style.display="block";window.scrollTo(0,0)}
+function toggleLang(){lang=lang==="hi"?"en":"hi";render()}
+function go(x){tab=x;render()}
+function nav(){document.getElementById("nav").innerHTML=[["home","home"],["stock","stock"],["sale","sale"],["customers","customers"],["history","history"]].map(([id,k])=>`<button onclick="go('${id}')" ${tab===id?'style="background:#ffcc00;color:#222"':""}>${t(k)}</button>`).join("")}
+function render(){nav();let a=document.getElementById("app");a.innerHTML=tab==="home"?home():tab==="stock"?stock():tab==="sale"?sale():tab==="customers"?customers():history();document.getElementById("notice").style.display="none"}
+function home(){
+let revenue=data.sales.reduce((s,x)=>s+x.total,0),profit=data.sales.reduce((s,x)=>s+x.profit,0),units=data.items.reduce((s,x)=>s+x.qty,0);
+return `<section class="card"><h2>${t("welcome")}</h2><p>${t("homeText")}</p><div class="stats">
+<div class="stat">${t("products")}<b>${data.items.length}</b></div>
+<div class="stat">${t("units")}<b>${units}</b></div>
+<div class="stat">${t("revenue")}<b>${money(revenue)}</b></div>
+<div class="stat">${t("profit")}<b>${money(profit)}</b></div>
+</div></section>
+<section class="card"><h2>${t("low")}</h2>${data.items.filter(x=>x.qty<=5).length?`<ul>${data.items.filter(x=>x.qty<=5).map(x=>`<li>${esc(x.name)} — ${x.qty}</li>`).join("")}</ul>`:`<p>${t("empty")}</p>`}</section>`;
+}
+function stock(){return `<section class="card"><h2>${t("addProduct")}</h2>
+<form onsubmit="addProduct(event)">
+<label>${t("name")}<input name="name" required maxlength="100"></label>
+<label>${t("sku")}<input name="sku" maxlength="60"></label>
+<label>${t("buy")}<input name="buy" type="number" min="0" step=".01" required></label>
+<label>${t("price")}<input name="price" type="number" min="0" step=".01" required></label>
+<label>${t("qty")}<input name="qty" type="number" min="1" step="1" required></label>
+<button>${t("saveProduct")}</button></form></section>
+<section class="card"><h2>${t("stockList")}</h2>${data.items.length?`<div class="tablewrap"><table><thead><tr><th>${t("product")}</th><th>${t("buy")}</th><th>${t("price")}</th><th>${t("available")}</th><th>${t("actions")}</th></tr></thead><tbody>${data.items.map(x=>`<tr><td>${esc(x.name)}<br><small>${esc(x.sku)}</small></td><td>${money(x.buy)}</td><td>${money(x.price)}</td><td>${x.qty}</td><td><button class="danger" onclick="deleteProduct('${x.id}')">${t("delete")}</button></td></tr>`).join("")}</tbody></table></div>`:`<p>${t("empty")}</p>`}</section>`}
+function addProduct(e){e.preventDefault();let f=new FormData(e.target),name=String(f.get("name")).trim();if(!name)return msg(t("required"));let sku=String(f.get("sku")).trim(),buy=Number(f.get("buy")),price=Number(f.get("price")),qty=Number(f.get("qty"));if(buy<0||price<0||!Number.isInteger(qty)||qty<1)return msg(t("required"));let old=data.items.find(x=>x.name.toLowerCase()===name.toLowerCase()&&x.sku===sku);if(old){old.qty+=qty;old.buy=buy;old.price=price}else data.items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name,sku,buy,price,qty});save();render();msg(t("saveProduct"))}
+function deleteProduct(id){if(!confirm(t("confirmDelete")))return;data.items=data.items.filter(x=>x.id!==id);save();render()}
+function sale(){return `<section class="card"><h2>${t("createBill")}</h2>${data.items.length?`<form onsubmit="makeSale(event)">
+<label>${t("customer")}<input name="name" maxlength="100" placeholder="${t("noCustomer")}"></label>
+<label>${t("phone")}<input name="phone" inputmode="tel" maxlength="20"></label>
+<label>${t("choose")}<select name="item" required>${data.items.map(x=>`<option value="${x.id}">${esc(x.name)} — ${money(x.price)} (${t("available")}: ${x.qty})</option>`).join("")}</select></label>
+<label>${t("sellQty")}<input name="qty" type="number" min="1" step="1" value="1" required></label>
+<label>${t("cash")}<select name="payment"><option>Cash</option><option>UPI</option><option>Other</option></select></label>
+<button class="green">${t("createBill")}</button></form>`:`<p>${t("noStock")}</p>`}</section>
+<section class="card"><h2>${t("itemHistory")}</h2>${data.sales.length?`<div class="tablewrap"><table><tr><th>${t("bill")}</th><th>${t("customer")}</th><th>${t("total")}</th><th></th></tr>${data.sales.slice().reverse().slice(0,10).map(s=>`<tr><td>${esc(s.bill)}</td><td>${esc(s.customer||t("noCustomer"))}</td><td>${money(s.total)}</td><td><button onclick="printBill('${s.id}')">${t("print")}</button></td></tr>`).join("")}</table></div>`:`<p>${t("empty")}</p>`}</section>`}
+function makeSale(e){e.preventDefault();let f=new FormData(e.target),item=data.items.find(x=>x.id===f.get("item")),qty=Number(f.get("qty"));if(!item||!
