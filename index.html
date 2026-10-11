@@ -7,6 +7,25 @@
 <style>
 :root{--teal:#075b63;--orange:#f59e0b;--bg:#f3f6f8;--ink:#18212b;--muted:#64748b;--line:#dce3e8;--red:#b91c1c;--green:#166534}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:var(--bg);color:var(--ink)}header{background:linear-gradient(120deg,#064e56,#0b7780);color:white;padding:20px 16px}header h1{margin:0 0 6px;font-size:24px}header p{margin:0;opacity:.9}main{max-width:1200px;margin:auto;padding:14px}.tabs{display:flex;gap:8px;overflow:auto;padding:4px 0 12px}.tabs button{white-space:nowrap;border:1px solid var(--line);background:white;color:var(--ink);padding:11px 14px;border-radius:10px;font-weight:700}.tabs button.active{background:var(--teal);color:white;border-color:var(--teal)}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card,.formbox{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #0f172a08}.metric{font-size:26px;font-weight:800;margin-top:8px}.muted{color:var(--muted);font-size:13px}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}label{display:block;font-size:13px;font-weight:700;margin:8px 0 5px}input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;background:white;font:inherit}button{cursor:pointer}.primary,.secondary,.danger{border:0;border-radius:8px;padding:11px 14px;font-weight:700;margin-top:10px}.primary{background:var(--teal);color:white}.secondary{background:#e7eef1;color:#12343a}.danger{background:#fee2e2;color:var(--red)}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:620px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:14px}th{background:#f8fafc}.sectiontitle{margin:6px 0 12px;font-size:19px}.actions{display:flex;gap:8px;flex-wrap:wrap}.notice{padding:12px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px;line-height:1.5}.success{color:var(--green);font-weight:700}.right{text-align:right}footer{text-align:center;padding:24px;color:var(--muted);font-size:12px}@media print{header,.tabs,.no-print,button{display:none!important}body{background:white}.panel{display:none!important}#billing.panel.active{display:block!important}.card,.formbox{box-shadow:none;border:0}}
+.card{
+  background:linear-gradient(145deg,#102b49,#07172b);
+  border:1px solid #d9b45b;
+  border-radius:22px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+button{
+  border-radius:12px;
+  font-weight:700;
+  transition:all .2s ease;
+}
+button:active{
+  transform:scale(.97);
+}
+input,select{
+  border-radius:12px;
+  border:1px solid #d9b45b;
+}
 </style>
 <style>
 #btAuthGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at top left,#243b68,#081326 65%);font-family:Arial,sans-serif}#btAuthGate .bt-card{width:min(100%,420px);padding:28px;border:1px solid #d4b15a;border-radius:22px;background:#101b31;color:#fff;box-shadow:0 20px 60px #0008}#btAuthGate h1{margin:0 0 8px;color:#f3d17b;font-size:25px}#btAuthGate p{color:#d1d8e5;line-height:1.5}#btAuthGate label{color:#fff}#btAuthGate input{margin-bottom:10px;padding:13px;border-radius:10px}#btAuthGate button{width:100%;padding:13px;border:0;border-radius:10px;background:linear-gradient(100deg,#d6ad4c,#ffe7a0);color:#172033;font-weight:800;font-size:16px}#btAuthError{color:#ffb8b8!important;font-size:14px;min-height:20px}#btLogout{position:fixed;right:10px;top:10px;z-index:99998;background:#7f1d1d;color:white;border:0;border-radius:8px;padding:8px 12px;display:none}body.bt-locked{overflow:hidden}
