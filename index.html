@@ -12,6 +12,106 @@
 <style>
 #btAuthGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at top left,#243b68,#081326 65%);font-family:Arial,sans-serif}#btAuthGate .bt-card{width:min(100%,420px);padding:28px;border:1px solid #d4b15a;border-radius:22px;background:#101b31;color:#fff;box-shadow:0 20px 60px #0008}#btAuthGate h1{margin:0 0 8px;color:#f3d17b;font-size:25px}#btAuthGate p{color:#d1d8e5;line-height:1.5}#btAuthGate label{color:#fff}#btAuthGate input{margin-bottom:10px;padding:13px;border-radius:10px}#btAuthGate button{width:100%;padding:13px;border:0;border-radius:10px;background:linear-gradient(100deg,#d6ad4c,#ffe7a0);color:#172033;font-weight:800;font-size:16px}#btAuthError{color:#ffb8b8!important;font-size:14px;min-height:20px}#btLogout{position:fixed;right:10px;top:10px;z-index:99998;background:#7f1d1d;color:white;border:0;border-radius:8px;padding:8px 12px;display:none}body.bt-locked{overflow:hidden}
 </style>
+ <style>
+:root {
+  --navy:#08172e;
+  --blue:#10284a;
+  --gold:#e9bd61;
+  --cream:#fffaf0;
+}
+body {
+  background:linear-gradient(145deg,#08172e,#142c4b);
+  color:#f8fafc;
+  font-family:Arial,sans-serif;
+}
+header {
+  background:linear-gradient(120deg,#07152b,#124b62);
+  color:#fff;
+  padding:26px 18px;
+  border-bottom:2px solid var(--gold);
+}
+header h1 {
+  color:var(--gold);
+  letter-spacing:1px;
+}
+.card,.formbox {
+  background:#10233e;
+  color:#f8fafc;
+  border:1px solid #bd9950;
+  border-radius:16px;
+  padding:18px;
+  margin:14px 0;
+  box-shadow:0 8px 24px #0004;
+}
+.sectiontitle {
+  color:var(--gold);
+}
+.muted {
+  color:#c4d0df;
+}
+.metric {
+  background:linear-gradient(135deg,#132d4d,#0b1a31);
+  border:1px solid #bd9950;
+  border-radius:14px;
+  padding:18px;
+}
+button {
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+button.primary,.primary {
+  background:linear-gradient(100deg,#d6a83f,#ffe29a);
+  color:#102039;
+  border:0;
+  padding:12px 16px;
+}
+button.secondary,.secondary {
+  background:#172d49;
+  color:#ffe09a;
+  border:1px solid #bd9950;
+}
+input,select,textarea {
+  background:#fff;
+  color:#172033;
+  border:1px solid #d6b45f;
+  border-radius:9px;
+  padding:12px;
+  max-width:100%;
+}
+table {
+  background:#10233e;
+  color:#f8fafc;
+  width:100%;
+  border-collapse:collapse;
+}
+th {
+  background:#183958;
+  color:#ffdc8a;
+}
+td,th {
+  padding:10px;
+  border-bottom:1px solid #52637a;
+}
+.notice {
+  background:#fff6df;
+  color:#473716;
+  border:1px solid #e9bd61;
+  border-radius:12px;
+  padding:14px;
+}
+nav {
+  gap:8px;
+}
+nav button {
+  border:1px solid #bd9950;
+}
+footer {
+  color:#d7c18d;
+  text-align:center;
+  padding:20px;
+}
+</style>
 </head>
 <body class="bt-locked">
 <div id="btAuthGate"><div class="bt-card"><h1>BHARAT TELECOM</h1><p>Dhaurahara, Kheri · Premium Secure Login</p><form id="btAuthForm"><label for="btEmail">Admin Email</label><input id="btEmail" type="email" autocomplete="username" placeholder="Apna Firebase email" required><label for="btPassword">Password</label><input id="btPassword" type="password" autocomplete="current-password" placeholder="Password daalein" required><button type="submit">Secure Login</button><p id="btAuthError" role="alert"></p></form><p style="font-size:12px">Apna password kisi ke saath share na karein.</p></div></div><button id="btLogout" type="button">Log Out</button>
