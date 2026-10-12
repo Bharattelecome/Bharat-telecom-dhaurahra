@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bharat Telecom Dhaurahara | Management System</title>
+<style>
+:root{--teal:#075b63;--orange:#f59e0b;--bg:#f3f6f8;--ink:#18212b;--muted:#64748b;--line:#dce3e8;--red:#b91c1c;--green:#166534}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:var(--bg);color:var(--ink)}header{background:linear-gradient(120deg,#064e56,#0b7780);color:white;padding:20px 16px}header h1{margin:0 0 6px;font-size:24px}header p{margin:0;opacity:.9}main{max-width:1200px;margin:auto;padding:14px}.tabs{display:flex;gap:8px;overflow:auto;padding:4px 0 12px}.tabs button{white-space:nowrap;border:1px solid var(--line);background:white;color:var(--ink);padding:11px 14px;border-radius:10px;font-weight:700}.tabs button.active{background:var(--teal);color:white;border-color:var(--teal)}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card,.formbox{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #0f172a08}.metric{font-size:26px;font-weight:800;margin-top:8px}.muted{color:var(--muted);font-size:13px}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}label{display:block;font-size:13px;font-weight:700;margin:8px 0 5px}input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;background:white;font:inherit}button{cursor:pointer}.primary,.secondary,.danger{border:0;border-radius:8px;padding:11px 14px;font-weight:700;margin-top:10px}.primary{background:var(--teal);color:white}.secondary{background:#e7eef1;color:#12343a}.danger{background:#fee2e2;color:var(--red)}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:620px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:14px}th{background:#f8fafc}.sectiontitle{margin:6px 0 12px;font-size:19px}.actions{display:flex;gap:8px;flex-wrap:wrap}.notice{padding:12px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px;line-height:1.5}.success{color:var(--green);font-weight:700}.right{text-align:right}footer{text-align:center;padding:24px;color:var(--muted);font-size:12px}@media print{header,.tabs,.no-print,button{display:none!important}body{background:white}.panel{display:none!important}#billing.panel.active{display:block!important}.card,.formbox{box-shadow:none;border:0}}
+.card{
+  background:linear-gradient(145deg,#102b49,#07172b);
+  border:1px solid #d9b45b;
+  border-radius:22px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+button{
+  border-radius:12px;
+  font-weight:700;
+  transition:all .2s ease;
+}
+button:active{
+  transform:scale(.97);
+}
+input,select{
+  border-radius:12px;
+  border:1px solid #d9b45b;
+}
+</style>
+<style>
+#btAuthGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at top left,#243b68,#081326 65%);font-family:Arial,sans-serif}#btAuthGate .bt-card{width:min(100%,420px);padding:28px;border:1px solid #d4b15a;border-radius:22px;background:#101b31;color:#fff;box-shadow:0 20px 60px #0008}#btAuthGate h1{margin:0 0 8px;color:#f3d17b;font-size:25px}#btAuthGate p{color:#d1d8e5;line-height:1.5}#btAuthGate label{color:#fff}#btAuthGate input{margin-bottom:10px;padding:13px;border-radius:10px}#btAuthGate button{width:100%;padding:13px;border:0;border-radius:10px;background:linear-gradient(100deg,#d6ad4c,#ffe7a0);color:#172033;font-weight:800;font-size:16px}#btAuthError{color:#ffb8b8!important;font-size:14px;min-height:20px}#btLogout{position:fixed;right:10px;top:10px;z-index:99998;background:#7f1d1d;color:white;border:0;border-radius:8px;padding:8px 12px;display:none}body.bt-locked{overflow:hidden}
+</style><style>
+:root {
+  --navy:#08172e;
+  --blue:#10284a;
+  --gold:#e9bd61;
+  --cream:#fffaf0;
+}
+body {
+  background:linear-gradient(145deg,#08172e,#142c4b);
+  color:#f8fafc;
+  font-family:Arial,sans-serif;
+}
+header {
+  background:linear-gradient(120deg,#07152b,#124b62);
+  color:#fff;
+  padding:26px 18px;
+  border-bottom:2px solid var(--gold);
+}
+header h1 {
+  color:var(--gold);
+  letter-spacing:1px;
+}
+.card,.formbox {
+  background:#10233e;
+  color:#f8fafc;
+  border:1px solid #bd9950;
+  border-radius:16px;
+  padding:18px;
+  margin:14px 0;
+  box-shadow:0 8px 24px #0004;
+}
+.sectiontitle {
+  color:var(--gold);
+}
+.muted {
+  color:#c4d0df;
+}
+.metric {
+  background:linear-gradient(135deg,#132d4d,#0b1a31);
+  border:1px solid #bd9950;
+  border-radius:14px;
+  padding:18px;
+}
+button {
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+button.primary,.primary {
+  background:linear-gradient(100deg,#d6a83f,#ffe29a);
+  color:#102039;
+  border:0;
+  padding:12px 16px;
+}
+button.secondary,.secondary {
+  background:#172d49;
+  color:#ffe09a;
+  border:1px solid #bd9950;
+}
+input,select,textarea {
+  background:#fff;
+  color:#172033;
+  border:1px solid #d6b45f;
+  border-radius:9px;
+  padding:12px;
+  max-width:100%;
+}
+table {
+  background:#10233e;
+  color:#f8fafc;
+  width:100%;
+  border-collapse:collapse;
+}
+th {
+  background:#183958;
+  color:#ffdc8a;
+}
+td,th {
+  padding:10px;
+  border-bottom:1px solid #52637a;
+}
+.notice {
+  background:#fff6df;
+  color:#473716;
+  border:1px solid #e9bd61;
+  border-radius:12px;
+  padding:14px;
+}
+nav {
+  gap:8px;
+}
+nav button {
+  border:1px solid #bd9950;
+}
+footer {
+  color:#d7c18d;
+  text-align:center;
+  padding:20px;
+}
+</style>
+
+<style>
+.bt-extra{margin:12px 0;padding:15px;background:#10233e;border:1px solid #d9b45b;border-radius:16px;color:#f8fafc}
+.bt-extra h2,.bt-extra h3{color:#e9bd61}
+.bt-extra .formgrid{margin-bottom:8px}
+.bt-tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.bt-tools input{flex:1;min-width:170px}
+.bt-mini{font-size:12px;color:#c4d0df}
+.bt-extra table{min-width:580px}
+#btLanguage{
+  position:absolute !important;
+  top:180px !important;
+  left:18px !important;
+  margin:0 !important;
+  z-index:99997;
+}
+@media print{#btLanguage,.bt-extra,.bt-extra-tab{display:none!important}}
+</style>
+
+<style>
+.bt-welcome{position:relative}.bt-live{font-size:11px;letter-spacing:2px;color:#ffe09a;font-weight:800;margin-bottom:10px}.bt-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#65f2bc;box-shadow:0 0 12px #65f2bc;margin-right:7px}.bt-welcome h1{font-size:clamp(23px,4vw,34px);text-shadow:0 0 20px #e9bd6140}.bt-welcome-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.bt-welcome-tags span{font-size:10px;letter-spacing:.7px;border:1px solid #bd995080;border-radius:30px;padding:7px 10px;color:#ffe09a;background:#08172e66}.bt-command{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px;margin:6px 0 18px;border:1px solid #d9b45b;border-radius:18px;background:radial-gradient(circle at 90% 20%,#1c4d6a,#10233e 55%,#08172e);box-shadow:0 12px 28px #0004}.bt-command h2,.bt-feature-hero h2{color:#ffe09a;margin:8px 0;font-size:clamp(21px,4vw,29px)}.bt-command p,.bt-feature-hero p{margin:0;color:#d4deea}.bt-command-mark{font-size:34px;font-weight:900;color:#f5d27c;border:1px solid #d9b45b;border-radius:50%;width:74px;height:74px;display:grid;place-items:center;flex-shrink:0;box-shadow:inset 0 0 20px #d9b45b22}.bt-command-mark span{font-size:13px}.bt-kicker{font-size:10px;letter-spacing:1.8px;color:#e9bd61;font-weight:800}.bt-feature-hero{padding:22px;border:1px solid #d9b45b;border-radius:18px;background:linear-gradient(120deg,#102b49,#07172b);margin:6px 0 14px}.bt-identity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.bt-id-card{border:1px solid #d9b45b;border-radius:15px;padding:15px;background:linear-gradient(145deg,#102b49,#07172b);color:#fff;overflow-wrap:anywhere}.bt-id-card h3{color:#ffe09a;margin:0 0 10px}.bt-id-card p{margin:7px 0;font-size:13px}.bt-id-card .bt-id-chip{display:inline-block;border:1px solid #bd9950;border-radius:20px;padding:4px 8px;color:#ffe09a;font-size:10px;margin-bottom:8px}.bt-tools select{min-width:150px;flex:1}.bt-status{display:inline-block;border:1px solid #d9b45b;border-radius:20px;padding:4px 8px;font-size:11px;white-space:nowrap;color:#ffe09a}.bt-extra-tab{white-space:nowrap}@media(max-width:480px){.bt-command{padding:15px}.bt-command-mark{width:56px;height:56px;font-size:25px}.bt-welcome-tags span{font-size:9px}.bt-feature-hero{padding:16px}}
+@media print{.bt-welcome-tags,.bt-live,.bt-command,.bt-feature-hero{display:none!important}}
+</style></head>
+<body class="bt-locked"><button id="btLanguage" type="button">हिंदी / English</button>
+<div id="btAuthGate"><div class="bt-card"><h1>BHARAT TELECOM</h1><p>Dhaurahara, Kheri · Premium Secure Login</p><form id="btAuthForm"><label for="btEmail">Admin Email</label><input id="btEmail" type="email" autocomplete="username" placeholder="Apna Firebase email" required><label for="btPassword">Password</label><input id="btPassword" type="password" autocomplete="current-password" placeholder="Password daalein" required><button type="submit">Secure Login</button><p id="btAuthError" role="alert"></p></form><p style="font-size:12px">Apna password kisi ke saath share na karein.</p></div></div><button id="btLogout" type="button">Log Out</button>
+
+<header><div class="bt-welcome"><div class="bt-live"><span class="bt-dot"></span> DIGITAL STORE CONTROL</div><h1>BHARAT TELECOM DHAURAHARA</h1><p>मोबाइल शॉप मैनेजमेंट सिस्टम · Smart Retail Experience</p><div class="bt-welcome-tags"><span>✦ SMART STOCK</span><span>✦ DIGITAL BILLING</span><span>✦ SERVICE TRACKING</span></div></div></header>
+<main>
+<div class="notice"><b>ज़रूरी जानकारी:</b> यह शुरुआती सिस्टम इसी ब्राउज़र/मोबाइल में डेटा सेव करता है। ब्राउज़र का डेटा मिटाने या दूसरे फोन पर खोलने से रिकॉर्ड अपने-आप नहीं आएँगे। नियमित रूप से <b>बैकअप डाउनलोड</b> करें। अभी इसमें ऑनलाइन मल्टी-यूज़र/क्लाउड सिंक शामिल नहीं है।</div>
+<nav class="tabs no-print" aria-label="मुख्य मेनू">
+<button class="active" data-tab="dashboard">डैशबोर्ड</button><button data-tab="stock">स्टॉक</button><button data-tab="sales">बिक्री</button><button data-tab="purchases">खरीद</button><button data-tab="customers">ग्राहक</button><button data-tab="billing">बिल</button><button data-tab="reports">रिपोर्ट / बैकअप</button><button data-tab="emi" class="bt-extra-tab">किस्त / EMI</button><button data-tab="expenses" class="bt-extra-tab">खर्च</button><button data-tab="calculator" class="bt-extra-tab">EMI Calculator</button><button data-tab="identity">Mobile Identity</button><button data-tab="service">Service Center</button>
+</nav>
+<section id="dashboard" class="panel active">
+<div class="bt-command"><div><span class="bt-kicker">BHARAT TELECOM / COMMAND CENTER</span><h2>Digital Command Center</h2><p>आपकी दुकान का स्मार्ट कंट्रोल पैनल</p></div><div class="bt-command-mark">BT<span>✦</span></div></div><h2 class="sectiontitle">आज का सारांश</h2><div class="grid">
+<div class="card"><div class="muted">स्टॉक में उत्पाद</div><div class="metric" id="mProducts">0</div></div>
+<div class="card"><div class="muted">स्टॉक की कुल मात्रा</div><div class="metric" id="mQty">0</div></div>
+<div class="card"><div class="muted">कुल बिक्री (सभी रिकॉर्ड)</div><div class="metric" id="mSales">₹0</div></div>
+<div class="card"><div class="muted">ग्राहकों से बाकी</div><div class="metric" id="mDue">₹0</div></div>
+</div><div class="card"><h3>कम स्टॉक वाले उत्पाद (मात्रा 3 या कम)</h3><div id="lowStock">कोई उत्पाद नहीं। स्टॉक टैब से उत्पाद जोड़ें।</div></div>
+</section>
+<section id="stock" class="panel">
+<div class="formbox"><h2 class="sectiontitle">उत्पाद जोड़ें / स्टॉक अपडेट करें</h2><form id="productForm"><div class="formgrid">
+<div><label>उत्पाद का नाम *</label><input name="name" required placeholder="जैसे Samsung A15"></div>
+<div><label>श्रेणी</label><select name="category"><option>मोबाइल</option><option>चार्जर</option><option>केबल</option><option>ईयरफोन</option><option>कवर / ग्लास</option><option>अन्य</option></select></div>
+<div><label>मॉडल / IMEI / कोड</label><input name="code" placeholder="IMEI या SKU (वैकल्पिक)"></div>
+<div><label>खरीद मूल्य (₹) *</label><input name="cost" type="number" min="0" step="0.01" required></div>
+<div><label>बिक्री मूल्य (₹) *</label><input name="price" type="number" min="0" step="0.01" required></div>
+<div><label>शुरुआती मात्रा *</label><input name="qty" type="number" min="0" step="1" required></div>
+</div><button class="primary" type="submit">उत्पाद सेव करें</button></form></div>
+<div class="card"><h3>मौजूदा स्टॉक</h3><div class="tablewrap"><table><thead><tr><th>नाम</th><th>श्रेणी</th><th>कोड/IMEI</th><th>मात्रा</th><th>खरीद ₹</th><th>बिक्री ₹</th><th>कार्य</th></tr></thead><tbody id="productsTable"></tbody></table></div></div>
+</section>
+<section id="sales" class="panel">
+<div class="formbox"><h2 class="sectiontitle">नई बिक्री दर्ज करें</h2><form id="saleForm"><div class="formgrid">
+<div><label>उत्पाद *</label><select name="product" id="saleProduct" required></select></div><div><label>मात्रा *</label><input name="qty" type="number" min="1" step="1" value="1" required></div>
+<div><label>ग्राहक का नाम</label><input name="customer" placeholder="ग्राहक का नाम"></div><div><label>मोबाइल नंबर</label><input name="phone" inputmode="tel" placeholder="मोबाइल नंबर"></div>
+<div><label>प्रति यूनिट बिक्री मूल्य (₹) *</label><input name="price" type="number" min="0" step="0.01" required></div><div><label>जमा राशि (₹)</label><input name="paid" type="number" min="0" step="0.01" value="0"></div><div><label>तारीख</label><input name="date" type="date" required></div>
+</div><button class="primary" type="submit">बिक्री सेव करें</button></form></div>
+<div class="card"><h3>बिक्री रिकॉर्ड</h3><div class="tablewrap"><table><thead><tr><th>बिल नं.</th><th>तारीख</th><th>ग्राहक</th><th>उत्पाद</th><th>मात्रा</th><th>कुल ₹</th><th>जमा ₹</th><th>बाकी ₹</th><th></th></tr></thead><tbody id="salesTable"></tbody></table></div></div>
+</section>
+<section id="purchases" class="panel">
+<div class="formbox"><h2 class="sectiontitle">नई खरीद दर्ज करें</h2><form id="purchaseForm"><div class="formgrid">
+<div><label>मौजूदा उत्पाद *</label><select name="product" id="purchaseProduct" required></select></div><div><label>मात्रा *</label><input name="qty" type="number" min="1" step="1" required></div><div><label>प्रति यूनिट खरीद मूल्य (₹) *</label><input name="cost" type="number" min="0" step="0.01" required></div><div><label>सप्लायर</label><input name="supplier" placeholder="दुकानदार / सप्लायर"></div><div><label>तारीख</label><input name="date" type="date" required></div>
+</div><button class="primary" type="submit">खरीद सेव करें और स्टॉक बढ़ाएँ</button></form></div>
+<div class="card"><h3>खरीद रिकॉर्ड</h3><div class="tablewrap"><table><thead><tr><th>तारीख</th><th>सप्लायर</th><th>उत्पाद</th><th>मात्रा</th><th>प्रति यूनिट ₹</th><th>कुल ₹</th></tr></thead><tbody id="purchasesTable"></tbody></table></div></div>
+</section>
+<section id="customers" class="panel">
+<div class="formbox"><h2 class="sectiontitle">ग्राहक जोड़ें</h2><form id="customerForm"><div class="formgrid"><div><label>ग्राहक का नाम *</label><input name="name" required></div><div><label>मोबाइल नंबर</label><input name="phone" inputmode="tel"></div><div><label>पता</label><input name="address"></div><div><label>शुरुआती बाकी (₹)</label><input name="due" type="number" min="0" step="0.01" value="0"></div></div><button class="primary" type="submit">ग्राहक सेव करें</button></form></div>
+<div class="card"><h3>ग्राहक सूची</h3><div class="tablewrap"><table><thead><tr><th>नाम</th><th>फोन</th><th>पता</th><th>बाकी ₹</th><th></th></tr></thead><tbody id="customersTable"></tbody></table></div></div>
+<div class="formbox"><h3>ग्राहक से भुगतान दर्ज करें</h3><form id="paymentForm"><div class="formgrid"><div><label>ग्राहक</label><select name="customer" id="paymentCustomer" required></select></div><div><label>जमा राशि (₹)</label><input name="amount" type="number" min="0.01" step="0.01" required></div><div><label>तारीख</label><input name="date" type="date" required></div></div><button class="primary" type="submit">भुगतान दर्ज करें</button></form></div>
+</section>
+<section id="billing" class="panel">
+<div class="card"><h2 class="sectiontitle">बिल प्रिंट करें</h2><p class="muted">हाल की बिक्री का बिल चुनें। बिल प्रिंट करने के लिए ब्राउज़र के Print विकल्प में Save as PDF भी चुन सकते हैं।</p><label>बिक्री रिकॉर्ड</label><select id="billSelect"></select><div id="billPreview" style="margin-top:15px"></div><button class="primary no-print" id="printBill" type="button">बिल प्रिंट / PDF</button></div>
+</section>
+<section id="reports" class="panel">
+<div class="grid"><div class="card"><h3>डेटा बैकअप</h3><p class="muted">अपने सभी उत्पाद, बिक्री, खरीद और ग्राहक रिकॉर्ड JSON फ़ाइल में डाउनलोड करें।</p><button class="primary" id="backupBtn">बैकअप डाउनलोड करें</button></div>
+<div class="card"><h3>बैकअप वापस लाएँ</h3><p class="muted">पहले डाउनलोड की गई JSON बैकअप फ़ाइल चुनें। इससे मौजूदा डेटा बदल जाएगा।</p><input type="file" id="restoreFile" accept=".json,application/json"><button class="secondary" id="restoreBtn">बैकअप इम्पोर्ट करें</button></div>
+<div class="card"><h3>रिपोर्ट</h3><div id="reportSummary"></div><button class="secondary" id="csvBtn">बिक्री CSV डाउनलोड करें</button></div></div>
+<div class="notice">डेटा केवल इसी ब्राउज़र में सेव होता है। फोन बदलने, ब्राउज़र डेटा साफ करने या ऐप हटाने से पहले बैकअप डाउनलोड कर लें। यह ऐप अभी GST ई-इनवॉइस, ऑनलाइन पेमेंट, कई कर्मचारियों के लॉगिन या सर्वर सिंक नहीं करता।</div>
+</section>
+
+<section id="emi" class="panel">
+ <div class="bt-extra">
+  <h2>ग्राहक किस्त / EMI रिकॉर्ड</h2>
+  <p class="bt-mini">दुकान की अपनी किस्त और Finance Company EMI को अलग-अलग दर्ज करें। रिकॉर्ड इसी ब्राउज़र में सेव होंगे।</p>
+  <form id="btEmiForm"><div class="formgrid">
+   <div><label>ग्राहक का नाम *</label><input name="customer" required></div>
+   <div><label>मोबाइल नंबर</label><input name="phone" inputmode="tel"></div>
+   <div><label>किस्त का प्रकार *</label><select name="type"><option value="shop">दुकान की अपनी किस्त</option><option value="finance">Finance Company EMI</option></select></div>
+   <div><label>मोबाइल / उत्पाद</label><input name="product" placeholder="जैसे Samsung A15"></div>
+   <div><label>कुल रकम (₹) *</label><input name="total" type="number" min="1" step=".01" required></div>
+   <div><label>जमा / डाउन पेमेंट (₹)</label><input name="paid" type="number" min="0" step=".01" value="0"></div>
+   <div><label>मासिक किस्त (₹) *</label><input name="monthly" type="number" min="1" step=".01" required></div>
+   <div><label>अगली किस्त की तारीख</label><input name="nextDate" type="date"></div>
+   <div><label>Finance Company (यदि लागू)</label><input name="company" placeholder="कंपनी का नाम"></div>
+  </div><button class="primary" type="submit">किस्त रिकॉर्ड सेव करें</button></form>
+ </div>
+ <div class="bt-extra"><h3>किस्तों की सूची</h3><div class="bt-tools"><input id="btEmiSearch" placeholder="नाम / मोबाइल / कंपनी खोजें"></div><div class="tablewrap"><table><thead><tr><th>ग्राहक</th><th>प्रकार</th><th>उत्पाद</th><th>कुल</th><th>जमा</th><th>बाकी</th><th>मासिक किस्त</th><th>अगली तारीख</th><th>कार्य</th></tr></thead><tbody id="btEmiTable"></tbody></table></div></div>
+</section>
+<section id="expenses" class="panel">
+ <div class="bt-extra"><h2>दुकान के खर्च दर्ज करें</h2>
+ <form id="btExpenseForm"><div class="formgrid">
+  <div><label>खर्च का विवरण *</label><input name="name" required placeholder="जैसे बिजली बिल / किराया"></div>
+  <div><label>रकम (₹) *</label><input name="amount" type="number" min=".01" step=".01" required></div>
+  <div><label>तारीख *</label><input name="date" type="date" required></div>
+ </div><button class="primary" type="submit">खर्च सेव करें</button></form>
+ </div>
+ <div class="bt-extra"><h3>खर्च रिकॉर्ड</h3><div class="tablewrap"><table><thead><tr><th>तारीख</th><th>विवरण</th><th>रकम</th><th>कार्य</th></tr></thead><tbody id="btExpenseTable"></tbody></table></div><h3 id="btExpenseTotal">कुल खर्च: ₹0</h3><p id="btNetSummary"></p></div>
+</section>
+<section id="calculator" class="panel">
+ <div class="bt-extra"><h2>EMI Calculator</h2><p class="bt-mini">Finance EMI का अनुमान लगाने के लिए रकम, सालाना ब्याज और अवधि भरें। दुकान की बिना ब्याज किस्त के लिए ब्याज 0 रखें।</p>
+ <div class="formgrid">
+  <div><label>लोन / बाकी रकम (₹)</label><input id="btLoan" type="number" min="0" value="20000"></div>
+  <div><label>सालाना ब्याज (%)</label><input id="btRate" type="number" min="0" step=".1" value="0"></div>
+  <div><label>अवधि (महीने)</label><input id="btMonths" type="number" min="1" value="12"></div>
+ </div><button class="primary" id="btCalcBtn" type="button">EMI निकालें</button><h2 id="btCalcResult">मासिक किस्त: ₹1,666.67</h2><p id="btCalcDetails" class="bt-mini"></p>
+ </div>
+</section>
+
+<section id="identity" class="panel">
+ <div class="bt-feature-hero"><span class="bt-kicker">SMART PRODUCT PROFILE</span><h2>Smart Mobile Identity Card</h2><p>हर मोबाइल / उत्पाद का डिजिटल रिकॉर्ड बनाएं और जरूरत पड़ने पर खोजें।</p></div>
+ <div class="formbox"><h3 class="sectiontitle">नया डिजिटल उत्पाद रिकॉर्ड</h3><form id="btIdentityForm"><div class="formgrid">
+ <div><label>उत्पाद / मोबाइल का नाम *</label><input name="name" required placeholder="जैसे Samsung A15"></div>
+ <div><label>IMEI / Serial Number</label><input name="serial" placeholder="IMEI या Serial"></div>
+ <div><label>ग्राहक का नाम</label><input name="customer" placeholder="ग्राहक का नाम"></div>
+ <div><label>ग्राहक मोबाइल नंबर</label><input name="phone" inputmode="tel" placeholder="मोबाइल नंबर"></div>
+ <div><label>खरीद की तारीख</label><input name="date" type="date"></div>
+ <div><label>वारंटी / नोट</label><input name="warranty" placeholder="जैसे 1 साल वारंटी"></div>
+ </div><button class="primary" type="submit">डिजिटल कार्ड सेव करें</button></form></div>
+ <div class="card"><div class="bt-tools"><input id="btIdentitySearch" placeholder="नाम / IMEI / ग्राहक खोजें"></div><div id="btIdentityCards" class="bt-identity-grid"></div></div>
+ </section>
+ <section id="service" class="panel">
+ <div class="bt-feature-hero"><span class="bt-kicker">DIGITAL SERVICE DESK</span><h2>Digital Service Center</h2><p>रिपेयरिंग, शिकायत और सर्विस डिलीवरी का रिकॉर्ड एक जगह रखें।</p></div>
+ <div class="formbox"><h3 class="sectiontitle">नई सर्विस एंट्री</h3><form id="btServiceForm"><div class="formgrid">
+ <div><label>ग्राहक का नाम *</label><input name="customer" required></div>
+ <div><label>मोबाइल नंबर</label><input name="phone" inputmode="tel"></div>
+ <div><label>मोबाइल / उत्पाद *</label><input name="product" required placeholder="कंपनी और मॉडल"></div>
+ <div><label>समस्या / काम *</label><input name="issue" required placeholder="जैसे डिस्प्ले / चार्जिंग"></div>
+ <div><label>अनुमानित खर्च (₹)</label><input name="amount" type="number" min="0" step=".01" value="0"></div>
+ <div><label>जमा करने की तारीख *</label><input name="date" type="date" required></div>
+ <div><label>डिलीवरी की तारीख</label><input name="delivery" type="date"></div>
+ <div><label>स्थिति</label><select name="status"><option>Received</option><option>In Progress</option><option>Ready</option><option>Delivered</option></select></div>
+ </div><button class="primary" type="submit">सर्विस रिकॉर्ड सेव करें</button></form></div>
+ <div class="card"><h3 class="sectiontitle">सर्विस रिकॉर्ड</h3><div class="bt-tools"><input id="btServiceSearch" placeholder="ग्राहक / मोबाइल / समस्या खोजें"><select id="btServiceFilter"><option value="">सभी स्थितियाँ</option><option>Received</option><option>In Progress</option><option>Ready</option><option>Delivered</option></select></div><div class="tablewrap"><table><thead><tr><th>टिकट</th><th>ग्राहक</th><th>मोबाइल / समस्या</th><th>तारीख</th><th>डिलीवरी</th><th>रकम</th><th>स्थिति</th><th>कार्य</th></tr></thead><tbody id="btServiceTable"></tbody></table></div></div>
+ </section>
+ </main><footer>© Bharat Telecom Dhaurahara · रिकॉर्ड सही रखने के लिए नियमित बैकअप लें</footer>
+<script>
+const KEY='bharatTelecomDhaurahara_v1';
+const blank=()=>({products:[],sales:[],purchases:[],customers:[],payments:[],nextBill:1});
+let db;
+try{db=JSON.parse(localStorage.getItem(KEY))||blank()}catch(e){db=blank()}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function money(n){return '₹'+(Number(n)||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function today(){return new Date().toISOString().slice(0,10)}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));if(b.dataset.tab==='billing')renderBill()}));
+document.querySelectorAll('input[type=date]').forEach(x=>x.value=today());
+function productOptions(){return '<option value="">उत्पाद चुनें</option>'+db.products.map(p=>`<option value="${p.id}">${esc(p.name)} (स्टॉक: ${p.qty})</option>`).join('')}
+function render(){
+document.getElementById('mProducts').textContent=db.products.length;
+document.getElementById('mQty').textContent=db.products.reduce((a,p)=>a+Number(p.qty),0);
+document.getElementById('mSales').textContent=money(db.sales.reduce((a,s)=>a+s.total,0));
+document.getElementById('mDue').textContent=money(db.sales.reduce((a,s)=>a+s.due,0)+db.customers.reduce((a,c)=>a+Number(c.due||0),0));
+document.getElementById('productsTable').innerHTML=db.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td>${esc(p.code)}</td><td>${p.qty}</td><td>${money(p.cost)}</td><td>${money(p.price)}</td><td><button class="danger" onclick="deleteProduct('${p.id}')">हटाएँ</button></td></tr>`).join('')||'<tr><td colspan="7">अभी कोई उत्पाद नहीं है।</td></tr>';
+document.getElementById('saleProduct').innerHTML=productOptions();document.getElementById('purchaseProduct').innerHTML=productOptions();
+document.getElementById('salesTable').innerHTML=[...db.sales].reverse().map(s=>`<tr><td>${esc(s.bill)}</td><td>${esc(s.date)}</td><td>${esc(s.customer||'—')}</td><td>${esc(s.productName)}</td><td>${s.qty}</td><td>${money(s.total)}</td><td>${money(s.paid)}</td><td>${money(s.due)}</td><td><button class="secondary" onclick="selectBill('${s.id}')">बिल</button></td></tr>`).join('')||'<tr><td colspan="9">बिक्री रिकॉर्ड नहीं है।</td></tr>';
+document.getElementById('purchasesTable').innerHTML=[...db.purchases].reverse().map(p=>`<tr><td>${esc(p.date)}</td><td>${esc(p.supplier||'—')}</td><td>${esc(p.productName)}</td><td>${p.qty}</td><td>${money(p.cost)}</td><td>${money(p.qty*p.cost)}</td></tr>`).join('')||'<tr><td colspan="6">खरीद रिकॉर्ड नहीं है।</td></tr>';
+document.getElementById('customersTable').innerHTML=db.customers.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.phone||'—')}</td><td>${esc(c.address||'—')}</td><td>${money(c.due)}</td><td><button class="danger" onclick="deleteCustomer('${c.id}')">हटाएँ</button></td></tr>`).join('')||'<tr><td colspan="5">ग्राहक नहीं जोड़ा गया है।</td></tr>';
+document.getElementById('paymentCustomer').innerHTML='<option value="">ग्राहक चुनें</option>'+db.customers.map(c=>`<option value="${c.id}">${esc(c.name)} — बाकी ${money(c.due)}</option>`).join('');
+document.getElementById('lowStock').innerHTML=db.products.filter(p=>p.qty<=3).map(p=>`<p>${esc(p.name)} — <b>${p.qty}</b> बाकी</p>`).join('')||'कम स्टॉक वाला उत्पाद नहीं है।';
+document.getElementById('reportSummary').innerHTML=`<p>कुल बिक्री: <b>${money(db.sales.reduce((a,s)=>a+s.total,0))}</b></p><p>कुल खरीद: <b>${money(db.purchases.reduce((a,p)=>a+p.qty*p.cost,0))}</b></p><p>बिक्री पर अनुमानित मार्जिन: <b>${money(db.sales.reduce((a,s)=>a+(s.price-s.cost)*s.qty,0))}</b></p><p>बिक्री रिकॉर्ड: <b>${db.sales.length}</b></p>`;
+const bs=document.getElementById('billSelect');const old=bs.value;bs.innerHTML=db.sales.slice().reverse().map(s=>`<option value="${s.id}">${esc(s.bill)} · ${esc(s.customer||'ग्राहक')} · ${money(s.total)}</option>`).join('');if(old&&db.sales.some(s=>s.id===old))bs.value=old;renderBill();
+}
+function deleteProduct(id){if(!confirm('इस उत्पाद को हटाएँ? पुराने बिक्री रिकॉर्ड बने रहेंगे।'))return;db.products=db.products.filter(p=>p.id!==id);save()}
+function deleteCustomer(id){if(!confirm('इस ग्राहक को हटाएँ?'))return;db.customers=db.customers.filter(c=>c.id!==id);save()}
+document.getElementById('productForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);db.products.push({id:crypto.randomUUID(),name:f.get('name').trim(),category:f.get('category'),code:f.get('code').trim(),cost:+f.get('cost'),price:+f.get('price'),qty:+f.get('qty')});e.target.reset();save();alert('उत्पाद सेव हो गया।')});
+document.getElementById('saleProduct').addEventListener('change',e=>{const p=db.products.find(p=>p.id===e.target.value);if(p)document.querySelector('#saleForm [name=price]').value=p.price});
+document.getElementById('saleForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),p=db.products.find(p=>p.id===f.get('product')),qty=+f.get('qty'),price=+f.get('price'),paid=+f.get('paid');if(!p)return alert('उत्पाद चुनें।');if(qty>p.qty)return alert('स्टॉक में केवल '+p.qty+' उपलब्ध है।');const total=qty*price;if(paid>total)return alert('जमा राशि कुल बिल से अधिक नहीं हो सकती।');const customer=(f.get('customer')||'').trim(),phone=(f.get('phone')||'').trim();p.qty-=qty;let c=db.customers.find(c=>phone&&c.phone===phone);if(customer&&!c){c={id:crypto.randomUUID(),name:customer,phone,address:'',due:0};db.customers.push(c)}const s={id:crypto.randomUUID(),bill:'BT-'+String(db.nextBill++).padStart(4,'0'),date:f.get('date'),productId:p.id,productName:p.name,qty,price,cost:p.cost,total,paid,due:total-paid,customer,phone};db.sales.push(s);if(c)c.due=Number(c.due||0)+s.due;e.target.reset();e.querySelector('[name=date]').value=today();e.querySelector('[name=paid]').value='0';save();alert('बिक्री दर्ज हुई। बिल टैब से प्रिंट कर सकते हैं।')});
+document.getElementById('purchaseForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),p=db.products.find(p=>p.id===f.get('product'));if(!p)return alert('उत्पाद चुनें।');const qty=+f.get('qty'),cost=+f.get('cost');p.qty+=qty;p.cost=cost;db.purchases.push({id:crypto.randomUUID(),date:f.get('date'),productId:p.id,productName:p.name,qty,cost,supplier:f.get('supplier').trim()});e.target.reset();e.querySelector('[name=date]').value=today();save();alert('खरीद दर्ज हुई और स्टॉक बढ़ गया।')});
+document.getElementById('customerForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);db.customers.push({id:crypto.randomUUID(),name:f.get('name').trim(),phone:f.get('phone').trim(),address:f.get('address').trim(),due:+f.get('due')});e.target.reset();e.querySelector('[name=due]').value='0';save();alert('ग्राहक सेव हो गया।')});
+document.getElementById('paymentForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),c=db.customers.find(c=>c.id===f.get('customer')),amount=+f.get('amount');if(!c)return alert('ग्राहक चुनें।');if(amount>Number(c.due||0))return alert('राशि ग्राहक के दर्ज बाकी से अधिक है।');c.due=Number(c.due||0)-amount;db.payments.push({id:crypto.randomUUID(),customerId:c.id,amount,date:f.get('date')});e.target.reset();e.querySelector('[name=date]').value=today();save();alert('भुगतान दर्ज हो गया।')});
+function renderBill(){const id=document.getElementById('billSelect').value,s=db.sales.find(x=>x.id===id),el=document.getElementById('billPreview');if(!s){el.innerHTML='<p class="muted">बिल देखने के लिए बिक्री रिकॉर्ड चुनें।</p>';return}el.innerHTML=`<div style="border:1px dashed #94a3b8;padding:20px;max-width:650px;margin:auto;background:white"><h2 style="text-align:center">BHARAT TELECOM DHAURAHARA</h2><p style="text-align:center">मोबाइल शॉप बिल</p><hr><p><b>बिल नं.:</b> ${esc(s.bill)} &nbsp; <b>तारीख:</b> ${esc(s.date)}</p><p><b>ग्राहक:</b> ${esc(s.customer||'Walk-in Customer')} &nbsp; <b>फोन:</b> ${esc(s.phone||'—')}</p><table style="min-width:0"><tr><th>विवरण</th><th>मात्रा</th><th>दर</th><th>राशि</th></tr><tr><td>${esc(s.productName)}</td><td>${s.qty}</td><td>${money(s.price)}</td><td>${money(s.total)}</td></tr></table><h3 class="right">कुल: ${money(s.total)}</h3><p class="right">जमा: ${money(s.paid)}</p><h3 class="right">बाकी: ${money(s.due)}</h3><p style="text-align:center;margin-top:35px">धन्यवाद! फिर आइए।</p></div>`}
+document.getElementById('billSelect').addEventListener('change',renderBill);function selectBill(id){document.querySelector('[data-tab=billing]').click();document.getElementById('billSelect').value=id;renderBill()}
+document.getElementById('printBill').addEventListener('click',()=>{if(!document.getElementById('billSelect').value)return alert('पहले बिक्री रिकॉर्ड चुनें।');window.print()});
+document.getElementById('backupBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='bharat-telecom-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)});
+document.getElementById('restoreBtn').addEventListener('click',()=>{const file=document.getElementById('restoreFile').files[0];if(!file)return alert('पहले JSON बैकअप फ़ाइल चुनें।');if(!confirm('मौजूदा रिकॉर्ड बैकअप से बदल जाएँगे। जारी रखें?'))return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!x.products||!x.sales||!x.customers)throw Error();db=x;save();alert('बैकअप इम्पोर्ट हो गया।')}catch(err){alert('यह सही बैकअप फ़ाइल नहीं है।')}};r.readAsText(file)});
+document.getElementById('csvBtn').addEventListener('click',()=>{const rows=[['Bill','Date','Customer','Phone','Product','Qty','Price','Total','Paid','Due'],...db.sales.map(s=>[s.bill,s.date,s.customer,s.phone,s.productName,s.qty,s.price,s.total,s.paid,s.due])];const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='bharat-telecom-sales-'+today()+'.csv';a.click();URL.revokeObjectURL(a.href)});
+render();
+</script>
+
+
+<script>
+(function(){
+ const STORE='bharatTelecomExtras_v1';
+ let extra={emis:[],expenses:[]};
+ try{extra=Object.assign(extra,JSON.parse(localStorage.getItem(STORE)||'{}'))}catch(e){}
+ const saveExtra=()=>localStorage.setItem(STORE,JSON.stringify(extra));
+ const moneyExtra=n=>'₹'+(Number(n)||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+ const escExtra=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function renderEmi(){
+  const q=(document.getElementById('btEmiSearch').value||'').toLowerCase();
+  const list=extra.emis.filter(x=>(x.customer+' '+x.phone+' '+x.company).toLowerCase().includes(q));
+  document.getElementById('btEmiTable').innerHTML=list.map(x=>`<tr><td>${escExtra(x.customer)}<br>${escExtra(x.phone)}</td><td>${x.type==='shop'?'दुकान की किस्त':'Finance EMI'}${x.company?' · '+escExtra(x.company):''}</td><td>${escExtra(x.product)}</td><td>${moneyExtra(x.total)}</td><td>${moneyExtra(x.paid)}</td><td>${moneyExtra(Math.max(0,x.total-x.paid))}</td><td>${moneyExtra(x.monthly)}</td><td>${escExtra(x.nextDate||'—')}</td><td><button class="secondary" onclick="btRecordPayment('${x.id}')">किस्त जमा</button> <button class="danger" onclick="btDeleteEmi('${x.id}')">हटाएँ</button></td></tr>`).join('')||'<tr><td colspan="9">अभी कोई किस्त रिकॉर्ड नहीं है।</td></tr>';
+ }
+ window.btRecordPayment=id=>{const x=extra.emis.find(a=>a.id===id);if(!x)return;const amount=Number(prompt('कितनी किस्त जमा हुई? (₹)',x.monthly));if(!Number.isFinite(amount)||amount<=0)return;if(amount>x.total-x.paid)return alert('रकम बाकी से अधिक है।');x.paid+=amount;saveExtra();renderEmi()};
+ window.btDeleteEmi=id=>{if(confirm('यह किस्त रिकॉर्ड हटाएँ?')){extra.emis=extra.emis.filter(x=>x.id!==id);saveExtra();renderEmi()}};
+ document.getElementById('btEmiForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),x={id:Date.now().toString(),customer:f.get('customer').trim(),phone:f.get('phone').trim(),type:f.get('type'),product:f.get('product').trim(),total:+f.get('total'),paid:+f.get('paid'),monthly:+f.get('monthly'),nextDate:f.get('nextDate'),company:f.get('company').trim()};if(x.paid>x.total)return alert('जमा रकम कुल रकम से अधिक नहीं हो सकती।');extra.emis.push(x);saveExtra();e.target.reset();renderEmi();alert('किस्त रिकॉर्ड सेव हो गया।')});
+ document.getElementById('btEmiSearch').addEventListener('input',renderEmi);
+ function renderExpenses(){document.getElementById('btExpenseTable').innerHTML=extra.expenses.slice().reverse().map(x=>`<tr><td>${escExtra(x.date)}</td><td>${escExtra(x.name)}</td><td>${moneyExtra(x.amount)}</td><td><button class="danger" onclick="btDeleteExpense('${x.id}')">हटाएँ</button></td></tr>`).join('')||'<tr><td colspan="4">खर्च रिकॉर्ड नहीं है।</td></tr>';const total=extra.expenses.reduce((a,x)=>a+x.amount,0);document.getElementById('btExpenseTotal').textContent='कुल खर्च: '+moneyExtra(total);let sales=0;try{const d=JSON.parse(localStorage.getItem('bharatTelecomDhaurahara_v1')||'{}');sales=(d.sales||[]).reduce((a,x)=>a+(Number(x.price)-Number(x.cost))*Number(x.qty),0)}catch(e){}document.getElementById('btNetSummary').textContent='अनुमानित बिक्री मार्जिन: '+moneyExtra(sales)+' · खर्च के बाद अनुमानित मार्जिन: '+moneyExtra(sales-total)};
+ window.btDeleteExpense=id=>{if(confirm('यह खर्च रिकॉर्ड हटाएँ?')){extra.expenses=extra.expenses.filter(x=>x.id!==id);saveExtra();renderExpenses()}};
+ document.getElementById('btExpenseForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);extra.expenses.push({id:Date.now().toString(),name:f.get('name').trim(),amount:+f.get('amount'),date:f.get('date')});saveExtra();e.target.reset();e.querySelector('[name=date]').value=new Date().toISOString().slice(0,10);renderExpenses();alert('खर्च सेव हो गया।')});
+ function calc(){const p=Math.max(0,Number(document.getElementById('btLoan').value)||0),r=Math.max(0,Number(document.getElementById('btRate').value)||0)/1200,n=Math.max(1,Math.floor(Number(document.getElementById('btMonths').value)||1));const emi=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);document.getElementById('btCalcResult').textContent='मासिक किस्त: '+moneyExtra(emi);document.getElementById('btCalcDetails').textContent='कुल भुगतान: '+moneyExtra(emi*n)+' · अनुमानित ब्याज: '+moneyExtra(emi*n-p)}
+ document.getElementById('btCalcBtn').addEventListener('click',calc);['btLoan','btRate','btMonths'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+ // A lightweight bilingual toggle for the main navigation and major headings.
+ let english=false;
+ document.getElementById('btLanguage').addEventListener('click',()=>{
+  english=!english;
+  const map=english?{'डैशबोर्ड':'Dashboard','स्टॉक':'Stock','बिक्री':'Sales','खरीद':'Purchases','ग्राहक':'Customers','बिल':'Bills','रिपोर्ट / बैकअप':'Reports / Backup','किस्त / EMI':'Installments / EMI','खर्च':'Expenses','EMI Calculator':'EMI Calculator'}:{'Dashboard':'डैशबोर्ड','Stock':'स्टॉक','Sales':'बिक्री','Purchases':'खरीद','Customers':'ग्राहक','Bills':'बिल','Reports / Backup':'रिपोर्ट / बैकअप','Installments / EMI':'किस्त / EMI','Expenses':'खर्च'};
+  document.querySelectorAll('[data-tab]').forEach(b=>{const key=b.textContent.trim();if(map[key])b.textContent=map[key]});
+  document.getElementById('btLanguage').textContent=english?'Switch to Hindi':'हिंदी / English';
+ });
+ renderEmi();renderExpenses();calc();
+})();
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+(function(){
+ const allowedEmail='myshopdhr@gmail.com';
+ const firebaseConfig={apiKey:'AIzaSyBE66nr4jntHwTzdVEJCIHwDubcw6VUNuA',authDomain:'bharat-telecom-6d0be.firebaseapp.com',projectId:'bharat-telecom-6d0be',storageBucket:'bharat-telecom-6d0be.firebasestorage.app',messagingSenderId:'740835740334',appId:'1:740835740334:web:ec74afefb69491f3aabb3f',measurementId:'G-7096X24KGK'};
+ const gate=document.getElementById('btAuthGate'), form=document.getElementById('btAuthForm'), err=document.getElementById('btAuthError'), logout=document.getElementById('btLogout');
+ function lock(){gate.style.display='flex';document.body.classList.add('bt-locked');logout.style.display='none'}
+ function unlock(){gate.style.display='none';document.body.classList.remove('bt-locked');logout.style.display='block'}
+ try{if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);const auth=firebase.auth();lock();form.addEventListener('submit',async function(e){e.preventDefault();err.textContent='Login ho raha hai…';const email=document.getElementById('btEmail').value.trim().toLowerCase();if(email!==allowedEmail){err.textContent='Is website par sirf authorised admin email allowed hai.';return}try{await auth.signInWithEmailAndPassword(email,document.getElementById('btPassword').value);document.getElementById('btPassword').value='';err.textContent=''}catch(ex){err.textContent='Login nahi hua. Email/password check karein.'}});auth.onAuthStateChanged(async function(user){if(user&&user.email&&user.email.toLowerCase()===allowedEmail){unlock()}else{if(user){try{await auth.signOut()}catch(e){}}lock()}});logout.addEventListener('click',async function(){await auth.signOut();document.getElementById('btEmail').value='';document.getElementById('btPassword').value='';lock()})}catch(e){lock();err.textContent='Firebase load nahi hua. Internet aur Firebase config check karein.'}
+})();
+</script>
+
+<script>
+(function(){
+ const key='bharatTelecomDigitalFeatures_v1';
+ let state={identities:[],services:[]};
+ try{state=Object.assign(state,JSON.parse(localStorage.getItem(key)||'{}'))}catch(e){}
+ const save=()=>localStorage.setItem(key,JSON.stringify(state));
+ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const fmt=n=>'₹'+(Number(n)||0).toLocaleString('en-IN',{maximumFractionDigits:2});
+ const today=()=>new Date().toISOString().slice(0,10);
+ document.querySelectorAll('#btIdentityForm input[type=date],#btServiceForm input[type=date]').forEach(x=>{if(x.name==='date')x.value=today()});
+ function renderIds(){
+  const q=(document.getElementById('btIdentitySearch').value||'').toLowerCase();
+  const items=state.identities.filter(x=>(x.name+' '+x.serial+' '+x.customer+' '+x.phone).toLowerCase().includes(q));
+  document.getElementById('btIdentityCards').innerHTML=items.map(x=>`<div class="bt-id-card"><span class="bt-id-chip">SMART ID · ${esc(x.id.slice(-6))}</span><h3>${esc(x.name)}</h3><p><b>IMEI / Serial:</b> ${esc(x.serial||'—')}</p><p><b>ग्राहक:</b> ${esc(x.customer||'—')}</p><p><b>फोन:</b> ${esc(x.phone||'—')}</p><p><b>खरीद तारीख:</b> ${esc(x.date||'—')}</p><p><b>वारंटी / नोट:</b> ${esc(x.warranty||'—')}</p><button class="danger" onclick="btDeleteIdentity('${x.id}')">हटाएँ</button></div>`).join('')||'<p class="muted">अभी कोई डिजिटल कार्ड नहीं है। ऊपर फॉर्म से पहला रिकॉर्ड जोड़ें।</p>';
+ }
+ window.btDeleteIdentity=id=>{if(confirm('यह डिजिटल कार्ड हटाएँ?')){state.identities=state.identities.filter(x=>x.id!==id);save();renderIds()}};
+ document.getElementById('btIdentityForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);state.identities.unshift({id:Date.now().toString(),name:f.get('name').trim(),serial:f.get('serial').trim(),customer:f.get('customer').trim(),phone:f.get('phone').trim(),date:f.get('date'),warranty:f.get('warranty').trim()});save();e.target.reset();renderIds();alert('डिजिटल मोबाइल कार्ड सेव हो गया।')});
+ document.getElementById('btIdentitySearch').addEventListener('input',renderIds);
+ function renderServices(){
+  const q=(document.getElementById('btServiceSearch').value||'').toLowerCase(),filter=document.getElementById('btServiceFilter').value;
+  const items=state.services.filter(x=>(x.customer+' '+x.phone+' '+x.product+' '+x.issue).toLowerCase().includes(q)&&(!filter||x.status===filter));
+  document.getElementById('btServiceTable').innerHTML=items.map(x=>`<tr><td>${esc(x.ticket)}</td><td>${esc(x.customer)}<br>${esc(x.phone||'—')}</td><td>${esc(x.product)}<br>${esc(x.issue)}</td><td>${esc(x.date||'—')}</td><td>${esc(x.delivery||'—')}</td><td>${fmt(x.amount)}</td><td><select aria-label="स्थिति बदलें" onchange="btUpdateService('${x.id}',this.value)">${['Received','In Progress','Ready','Delivered'].map(s=>`<option ${s===x.status?'selected':''}>${s}</option>`).join('')}</select></td><td><button class="danger" onclick="btDeleteService('${x.id}')">हटाएँ</button></td></tr>`).join('')||'<tr><td colspan="8">अभी कोई सर्विस रिकॉर्ड नहीं है।</td></tr>';
+ }
+ window.btUpdateService=(id,status)=>{const x=state.services.find(a=>a.id===id);if(x){x.status=status;save();renderServices()}};
+ window.btDeleteService=id=>{if(confirm('यह सर्विस रिकॉर्ड हटाएँ?')){state.services=state.services.filter(x=>x.id!==id);save();renderServices()}};
+ document.getElementById('btServiceForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),id=Date.now().toString();state.services.unshift({id,ticket:'SR-'+id.slice(-6),customer:f.get('customer').trim(),phone:f.get('phone').trim(),product:f.get('product').trim(),issue:f.get('issue').trim(),amount:Number(f.get('amount'))||0,date:f.get('date'),delivery:f.get('delivery'),status:f.get('status')});save();e.target.reset();e.querySelector('[name=date]').value=today();renderServices();alert('सर्विस रिकॉर्ड सेव हो गया।')});
+ document.getElementById('btServiceSearch').addEventListener('input',renderServices);
+ document.getElementById('btServiceFilter').addEventListener('change',renderServices);
+ renderIds();renderServices();
+})();
+</script>
+</body>
+</html>
